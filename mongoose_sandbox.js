@@ -45,6 +45,12 @@ db.once('open',function(){
 
 	}); //whale
 
+	// var addAnimalPromise = new Promise(resolve, reject){
+	// 	reject();
+	// 	resolve();
+	// };
+
+
 	Animal.remove({},function(err){
 		if(err) console.error(err);
 		elephant.save(function(err){
