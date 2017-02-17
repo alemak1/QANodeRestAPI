@@ -50,6 +50,14 @@ db.once('open',function(){
 		console.log(animalInstance.name + " the " + animalInstance.size + " " + animal.type + " was saved!");
 	}
 
+	var logError = function(){
+		console.error("Save failed!", err);
+	}
+
+	var logError2 = function(err){
+		if(err) console.error("Save failed!", err);
+	}
+
 	var addAnimalPromise = new Promise(function(resolve,reject){
 		resolve();
 		reject();
@@ -58,25 +66,23 @@ db.once('open',function(){
 	addAnimalPromise
 		.then(function(){
 			Animal.remove({});
-		})
-		.then(saveAnimal(elephant))
-		.then(saveAnimal(animal))
-		.then(saveAnimal(whale))
+		}, logError)
+		.then(saveAnimal(elephant),logError)
+		.then(saveAnimal(animal),logError)
+		.then(saveAnimal(whale),logError)
 		.then(function(){
 			Animal.find({size:"big"},function(err, animals){
 				animals.forEach(function(animal){
 					console.log(animal.name + " the " + animal.color + " " + animal.type);
 				});
 			});
-		})
+		}, logError)
 		.then(function(){
 			db.close(function(){
 				console.log("db connection closed");
 			});
 
-		}).catch(function(err){
-			if(err)console.error("Save failed!", err);
-		});
+		}, logError)
 	
 
 	// Animal.remove({},function(err){
