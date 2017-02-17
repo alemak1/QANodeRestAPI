@@ -37,14 +37,36 @@ db.once('open',function(){
 
 	var animal = new Animal({}); //GoldFish
 
+	var whale = new Animal({
+		type: "whale",
+		size: "big",
+		mass: 190500,
+		name: "Fig"
+
+	}); //whale
+
 	Animal.remove({},function(err){
 		if(err) console.error(err);
 		elephant.save(function(err){
 		if(err) console.error("Save Failed.",err);
 			animal.save(function(err){
-				db.close(function(){
-				console.log("db connection closed");
+				if(err) console.error("Save Failed",err);
+				whale.save(function(err){
+					if(err)console.err("Saved Failed", err);
+
+					Animal.find({size:"big"},function(err, animals){
+						animals.forEach(function(animal){
+							console.log(animal.name + " the " + animal.color + " " + animal.type);
+						});
+						db.close(function(){
+							console.log("db connection closed");
+						});
+
+					});
 				});
+					
+				});
+				
 			});
 	});
 
@@ -54,4 +76,3 @@ db.once('open',function(){
 
 	
 
-});
