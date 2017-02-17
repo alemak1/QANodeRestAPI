@@ -3,6 +3,16 @@
 var express = require('express');
 var app = express();
 
+app.use(function(req,res,next){
+	console.log("First piece of middleware");
+	next();
+});
+
+app.use('/different/:id',function(req,res,next){
+	console.log("Second piece of middleware, ID:", req.params.id);
+	next();
+});
+
 var port = process.env.PORT || 3000;
 
 app.listen(port,function(){
