@@ -35,9 +35,9 @@ db.once('open',function(){
 		next();
 	});
 
-	AnimalSchema.statics.findSmall = function(callback){
+	AnimalSchema.statics.findSize = function(size, callback){
 		//this  === Animal
-		return this.find({size: "small"},callback);
+		return this.find({size: size},callback);
 	}
 
 	var Animal = mongoose.model("Animal", AnimalSchema);
@@ -95,7 +95,7 @@ db.once('open',function(){
 		if(err) console.error(err);
 		Animal.create(animalData, function(err,animals){
 				if(err)console.err("Saved Failed", err);
-				Animal.findSmall(function(err, animals){
+				Animal.findSize("medium", function(err, animals){
 						animals.forEach(function(animal){
 							console.log(animal.name + " the " + animal.color + " " + animal.type + " is a " + animal.size + "-sized animal");
 						});
