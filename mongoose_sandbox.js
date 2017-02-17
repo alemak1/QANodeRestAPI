@@ -45,38 +45,66 @@ db.once('open',function(){
 
 	}); //whale
 
-	// var addAnimalPromise = new Promise(resolve, reject){
-	// 	reject();
-	// 	resolve();
-	// };
+	var saveAnimal = function(animalInstance){
+		animalInstance.save();
+		console.log(animalInstance.name + " the " + animalInstance.size + " " + animal.type + " was saved!");
+	}
 
+	var addAnimalPromise = new Promise(function(resolve,reject){
+		resolve();
+		reject();
+	});
 
-	Animal.remove({},function(err){
-		if(err) console.error(err);
-		elephant.save(function(err){
-		if(err) console.error("Save Failed.",err);
-			animal.save(function(err){
-				if(err) console.error("Save Failed",err);
-				whale.save(function(err){
-					if(err)console.err("Saved Failed", err);
-
-					Animal.find({size:"big"},function(err, animals){
-						animals.forEach(function(animal){
-							console.log(animal.name + " the " + animal.color + " " + animal.type);
-						});
-						db.close(function(){
-							console.log("db connection closed");
-						});
-
-					});
+	addAnimalPromise
+		.then(function(){
+			Animal.remove({});
+		})
+		.then(saveAnimal(elephant))
+		.then(saveAnimal(animal))
+		.then(saveAnimal(whale))
+		.then(function(){
+			Animal.find({size:"big"},function(err, animals){
+				animals.forEach(function(animal){
+					console.log(animal.name + " the " + animal.color + " " + animal.type);
 				});
-					
-				});
-				
 			});
-	});
+		})
+		.then(function(){
+			db.close(function(){
+				console.log("db connection closed");
+			});
 
-	});
+		}).catch(function(err){
+			if(err)console.error("Save failed!", err);
+		});
+	
+
+	// Animal.remove({},function(err){
+	// 	if(err) console.error(err);
+	// 	elephant.save(function(err){
+	// 	if(err) console.error("Save Failed.",err);
+	// 		animal.save(function(err){
+	// 			if(err) console.error("Save Failed",err);
+	// 			whale.save(function(err){
+	// 				if(err)console.err("Saved Failed", err);
+
+	// 				Animal.find({size:"big"},function(err, animals){
+	// 					animals.forEach(function(animal){
+	// 						console.log(animal.name + " the " + animal.color + " " + animal.type);
+	// 					});
+	// 					db.close(function(){
+	// 						console.log("db connection closed");
+	// 					});
+
+	// 				});
+	// 			});
+					
+	// 		});
+				
+	// 	});
+	// });
+
+});
 
 	
 
