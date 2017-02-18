@@ -2,11 +2,16 @@
 
 var express = require('express');
 var router = express.Router();
+var Question = require('./models').Question;
 
 
 // GET /questions
 // Route for the questions collection
-router.get("/",function(req,res){
+router.get("/",function(req,res, next){
+	Question.find({}, null, {sort: {createdAt: -1}},function(err, questions){
+		if(err) return next(err);
+		res.json(questions);
+	});
 	res.json({response: "You sent me a GET request"});
 });
 
