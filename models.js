@@ -2,7 +2,7 @@
 
 var mongoose = require('mongoose');
 
-var answers = function(a,b){
+var sortAnswers = function(a,b){
 	// - a before b
 	// 0 no change
 	//+ positive a after b
