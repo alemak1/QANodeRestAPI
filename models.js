@@ -8,7 +8,7 @@ var sortAnswers = function(a,b){
 	//+ positive a after b
 
 	if(a.votes === b.votes){
-		return a.updatedAt - b.updatedAt;
+		return b.updatedAt - a.updatedAt;
 	}
 
 	return b.votes - a.votes;
