@@ -20,11 +20,15 @@ router.get("/",function(req,res, next){
 
 // POST /questions
 // Route for creating a question
-router.post("/",function(req,res){
-	res.json({
-		response: "You sent me a POST request",
-		body: req.body 
+router.post("/",function(req,res, next){
+	var question = new Question(req.body);
+	question.save(function(err,question){
+		if(err) return next(err);
+		res.status(201);
+		res.json(question);
+
 	});
+
 });
 
 
