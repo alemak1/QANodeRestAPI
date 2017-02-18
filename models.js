@@ -8,13 +8,7 @@ var answers = function(a,b){
 	//+ positive a after b
 
 	if(a.votes === b.votes){
-		if(a.updatedAt > b.updatedAt){
-			return -1;
-		} else if (a.updatedAt < b.updatedAt){
-			return 1;
-		} else {
-			return 0;
-		}
+		return a.updatedAt - b.updatedAt;
 	}
 
 	return b.votes - a.votes;
