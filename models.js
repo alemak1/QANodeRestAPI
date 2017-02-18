@@ -31,7 +31,7 @@ var QuestionSchema = new Schema({
 });
 
 QuestionSchema.pre("save",function(next){
-	this.answers.sort();
+	this.answers.sort(sortAnswers);
 	next();
 });
 
