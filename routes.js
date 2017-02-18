@@ -90,7 +90,7 @@ router.put("/:qID/answers/:aID",function(req,res){
 // DELETE /questions/:id/answers
 // Route for deleting an anwer
 router.delete("/:qID/answers/:aID",function(req,res){
-	res.answer.remove(function(err){
+	req.answer.remove(function(err){
 		req.question.save(function(err, question){
 			if(err) return next(err);
 			res.json(question);
