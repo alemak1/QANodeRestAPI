@@ -8,10 +8,12 @@ var Question = require('./models').Question;
 // GET /questions
 // Route for the questions collection
 router.get("/",function(req,res, next){
-	Question.find({}, null, {sort: {createdAt: -1}},function(err, questions){
-		if(err) return next(err);
-		res.json(questions);
-	});
+	Question.find({})
+		.sort({createdAt: -1}})
+		.exec(function(err, questions){
+			if(err) return next(err);
+			res.json(questions);
+		});
 	res.json({response: "You sent me a GET request"});
 });
 
