@@ -24,7 +24,7 @@ db.on('error',function(err){
 db.once('open',function(){
 	console.log("db connection successful");
 	//All database communication goes here
-}
+});
 
 app.use("/questions",routes);
 
