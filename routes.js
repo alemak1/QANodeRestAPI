@@ -19,7 +19,7 @@ router.param("qID",function(req,res,next,id){
 
 
 router.param("aID",function(req,res,next,id){
-	req.answer = req.questions.answers.id(id);
+	req.answer = req.question.answers.id(id);
 	if(!req.answer){
 		err = new Error("Not Found");
 		err.status = 404;

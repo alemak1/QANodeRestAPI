@@ -26,7 +26,7 @@ var AnswerSchema = new Schema({
 
 AnswerSchema.method("update", function(updates,callback){
 	Object.assign(this,updates,{updatedAt: new Date()});
-	this.parent.save(callback);
+	this.parent().save(callback);
 });
 
 AnswerSchema.method("vote", function(vote,callback){
@@ -36,7 +36,7 @@ AnswerSchema.method("vote", function(vote,callback){
 		this.votes -= 1;
 	}
 
-	this.parent.save(callback);
+	this.parent().save(callback);
 });
 
 var QuestionSchema = new Schema({
