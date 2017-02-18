@@ -17,6 +17,18 @@ router.param("qID",function(req,res,next,id){
 	});
 });
 
+
+router.param("aID",function(req,res,next,id){
+	req.answer = req.questions.answers.id(id);
+	if(!req.answer){
+		err = new Error("Not Found");
+		err.status = 404;
+		return next(err);
+	}
+
+	next();
+});
+
 // GET /questions
 // Route for the questions collection
 router.get("/",function(req,res, next){
