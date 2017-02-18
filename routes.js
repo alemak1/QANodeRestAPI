@@ -79,7 +79,7 @@ router.post("/:qID/answers",function(req,res, next){
 // PUT /questions/:id/answers
 // Route for editing an anwer
 router.put("/:qID/answers/:aID",function(req,res){
-	req.answer.update(req.body, function(err,results){
+	req.answer.update(req.body, function(err,result){
 		if(err) return next(err);
 		res.json(result);
 	})
