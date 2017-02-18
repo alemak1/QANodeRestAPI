@@ -4,6 +4,18 @@ var express = require('express');
 var router = express.Router();
 var Question = require('./models').Question;
 
+router.param("qID",function(req,res,next,id){
+	Question.findById(id, function(err, doc){
+		if(err) return next(err);
+		if(!doc){
+			err = new Error("Not Found");
+			err.status = 404;
+			return next(err);
+		}
+		req.question = doc;
+		return next();
+	});
+});
 
 // GET /questions
 // Route for the questions collection
@@ -36,10 +48,7 @@ router.post("/",function(req,res, next){
 // GET /questions/:id
 // Route for a specific question 
 router.get("/:qID",function(req,res, next){
-	Question.findById(req.params.qID, function(err, doc){
-		if(err) return next(err);
-		res.json(doc);
-	});
+	res.json(req.question);
 });
 
 
