@@ -80,12 +80,11 @@ router.post("/:qID/answers",function(req,res, next){
 // PUT /questions/:id/answers
 // Route for editing an anwer
 router.put("/:qID/answers/:aID",function(req,res){
-	res.json({
-		response: "You sent me a PUT request to /answers",
-		questionId: req.params.qID,
-		answerId: req.params.aID,
-		body: req.body 
-	});
+	req.answer.update(req.body, function(err,results){
+		if(err) return next(err);
+		res.json(result);
+	})
+	
 });
 
 
